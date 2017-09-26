@@ -31,16 +31,21 @@ bool ModulePhysics::Start()
 	// - Remember to destroy the world after using it
 
 	b2Vec2 gravity(0.0f, -10.0f);
+
 	myWorld = new b2World(gravity);
 
 	// TODO 4: Create a a big static circle as "ground"
 
-	b2BodyDef bigbody;
-	bigbody.position.Set(0.0f, -10.0f);
+	b2BodyDef bigbodyDef;
+	bigbodyDef.type = b2_staticBody;
+	bigbodyDef.position.Set(PIXELS_TO_METER(0), PIXELS_TO_METER(0));
+	/*bigbodyDef.position.Set(0.0f, -10.0f);*/
 
-	b2PolygonShape groundcircle;
-	groundcircle.SetAsBox(50.0f, 10.0f);
-	/*b2Body* groundBody = myWorld.CreateBody(&groundbodyDef);*/
+	ground = myWorld->CreateBody(&bigbodyDef);
+
+	b2PolygonShape groundCircle;
+	groundCircle.SetAsBox(50.0f, 10.0f);
+	
 
 	return true;
 }

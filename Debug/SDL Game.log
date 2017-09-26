@@ -1,14 +1,16 @@
-﻿  ModuleWindow.cpp
+﻿  ModulePhysics.cpp
+f:\visual studio\vc\include\cmath(131): warning C4577: 'noexcept' used with no exception handling mode specified; termination on exception is not guaranteed. Specify /EHsc
+  Generating Code...
+  Compiling...
+  ModuleWindow.cpp
   ModuleTextures.cpp
   ModuleSceneIntro.cpp
   ModuleRender.cpp
   ModulePlayer.cpp
-  ModulePhysics.cpp
   ModuleInput.cpp
   ModuleAudio.cpp
   Main.cpp
-  log.cpp
   Application.cpp
   Generating Code...
-  SDL Game.vcxproj -> C:\Users\Usuario\Desktop\FISICA TODOS\Physics2_class1_handout\Debug\Physics 2 Class 1 Handout.exe
-  SDL Game.vcxproj -> C:\Users\Usuario\Desktop\FISICA TODOS\Physics2_class1_handout\Debug\Physics 2 Class 1 Handout.pdb (Full PDB)
+  SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Pinball\Debug\Physics 2 Class 1 Handout.exe
+  SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Pinball\Debug\Physics 2 Class 1 Handout.pdb (Full PDB)
