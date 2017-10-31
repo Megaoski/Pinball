@@ -1,45 +1,12 @@
 #pragma once
 #include "Module.h"
-#include "Animation.h"
-#include "p2DynArray.h"
+#include "p2List.h"
+#include "p2Point.h"
 #include "Globals.h"
+#include "Animation.h"
+#include "Box2D/Box2D/Box2D.h"
 
-#define BOUNCER_TIME 200
-
-struct Bouncer
-{
-	Bouncer() : body(NULL), texture(NULL), hit_timer(0), fx(0)
-	{}
-
-	PhysBody* body;
-	SDL_Texture* texture;
-	Uint32 hit_timer;
-	uint fx;
-};
-
-enum lightTypes
-{
-	tiny,
-	medium,
-	big
-};
-
-class ModuleSceneIntro;
-
-struct Light
-{
-	Light() : body(NULL), texture(NULL), on(false), fx(0)
-	{}
-
-	Light(ModuleSceneIntro* physics, int x, int y, lightTypes type);
-
-	lightTypes type;
-	PhysBody* body;
-	SDL_Texture* texture;
-	bool on;
-	uint fx;
-	int x, y;
-};
+class PhysBody;
 
 class ModuleSceneIntro : public Module
 {
@@ -50,28 +17,218 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	void CreateKickers();
+	void DrawKickers();
 
 public:
+	//bodys
 
-	SDL_Texture* graphics;
-	PhysBody* background;
+	PhysBody* ball;
+	PhysBody* leftkicker;
+	PhysBody* rightkicker;
+	PhysBody* topkicker;
 
-	Bouncer bouncer1;
-	Bouncer bouncer2;
+	//joints
 
-	Bouncer side_bouncer1;
-	Bouncer side_bouncer2;
+	b2RevoluteJoint* rev_joint_right = nullptr;
+	b2RevoluteJoint* rev_joint_left = nullptr;
+	b2RevoluteJoint* rev_joint_top = nullptr;
 
-	SDL_Texture* tex_light_tiny;
-	SDL_Texture* tex_light_medium;
-	SDL_Texture* tex_light_big;
+	//board
+
+	p2List<PhysBody*> backgrounds;
+	/*p2List<PhysBody*> triangle1;
+	p2List<PhysBody*> triangle2;*/
+	p2List<PhysBody*> piece;
+	p2List<PhysBody*> line1;
+	p2List<PhysBody*> line2;
+	p2List<PhysBody*> line3;
+	p2List<PhysBody*> rampa;
+	p2List<PhysBody*> line4;
+	p2List<PhysBody*> line5;
+	p2List<PhysBody*> tablero;
+
+	//bouncers
+
+	PhysBody* chincheta;
+	PhysBody* tentaclebouncer;
+	PhysBody* lefttriangle;
+	PhysBody* righttriangle;
+
+	//sensors
+
+	PhysBody* launchersensor;
+	PhysBody* endsensor;
+	PhysBody* turbosensor;
+	PhysBody* holesensor;
+
+	//textures
+	SDL_Texture* sprites;
+
+	//animation
+	Animation left_kicker;
+	Animation right_kicker;
+
+	int tabla[92]
+	{
+		
+		445, 441,
+		445, 206,
+		409, 247,
+		415, 254,
+		430, 249,
+		440, 254,
+		442, 269,
+		412, 308,
+		410, 396,
+		439, 449,
+		440, 487,
+		488, 523,
+		485, 669,
+		318, 803,
+		184, 801,
+		13, 672,
+		12, 523,
+		71, 479,
+		70, 463,
+		46, 439,
+		13, 364,
+		12, 63,
+		29, 32,
+		61, 11,
+		86, 4,
+		114, 4,
+		143, 17,
+		162, 30,
+		179, 63,
+		197, 64,
+		199, 28,
+		215, 15,
+		233, 27,
+		233, 57,
+		259, 83,
+		267, 82,
+		268, 35,
+		286, 18,
+		320, 6,
+		418, 6,
+		438, 10,
+		455, 19,
+		470, 31,
+		481, 45,
+		489, 64,
+		492, 440
+	};
+
+	int leftbottriangle[6]
+	{
+		89, 605,
+		87, 518,
+		154, 659
+
+	};
+
+	int rightbottriangle[6]
+	{
+		321, 654,
+		389, 521,
+		391, 606
+	};
+
+	int toppiece[16]
+	{
+		45, 222,
+		50, 230,
+		38, 240,
+		42, 264,
+		99, 289,
+		66, 364,
+		37, 354,
+		28, 238
+	};
+
+	int botleftline[16]
+	{
+		45, 542,
+		50, 540,
+		50, 601,
+		60, 632,
+		152, 707,
+		147, 712,
+		57, 641,
+		43, 605
+	};
+
+	int botrightline[16]
+	{
+		429, 540,
+		435, 540,
+		436, 604,
+		424, 640,
+		330, 713,
+		324, 706,
+		417, 635,
+		429, 602
+	};
+
+	int topballsline[8]
+	{
+		269, 226,
+		309, 266,
+		316, 261,
+		276, 220
+	};
+
+	int tobogan[20]
+	{
+		374, 84,
+		374, 62,
+		395, 48,
+		429, 70,
+		428, 205,
+		435, 204,
+		435, 67,
+		392, 39,
+		364, 59,
+		365, 84
+	};
+
+	int topline1[8]
+	{
+		286, 58,
+		294, 59,
+		294, 86,
+		286, 85
+	};
+
+	int topline2[8]
+	{
+		327, 60,
+		327, 87,
+		332, 87,
+		333, 60
+	};
+
 	
-	uint fx_light_tiny;
-	uint fx_light_medium;
-	uint fx_light_big;
 
-	p2DynArray<Light> lights;
+/*	
+	bool sensed*/;
+	bool on_launcher;
+	bool on_turbo;
+	bool ball_up;
+	bool delete_ball = false;
 
-	PhysBody* player_lose;
-	uint player_lose_fx;
+	SDL_Texture* circle;
+	SDL_Texture* box;
+	SDL_Texture* rick;
+	SDL_Texture* background;
+	
+	int current_balls;
+	int current_score;
+
+	uint bonus_fx;
+
+	p2Point<int> ray;
+	bool ray_on;
 };
