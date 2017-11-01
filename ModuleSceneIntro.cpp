@@ -7,6 +7,8 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
+#include "string.h"
+#include "ModuleWindow.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -103,8 +105,9 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-
-	
+	//title
+	p2SString title(" Pinball - SCORE: %d ", App->player->score);
+	App->window->SetTitle(title.GetString());
 
 	if (on_launcher && !ball_up && App->player->balls_left > 0)//initializing the first ball
 	{
