@@ -220,7 +220,7 @@ public:
 	bool on_launcher;
 	bool on_turbo;
 	bool ball_up;
-	bool delete_ball = false;
+	bool loose;
 
 	SDL_Texture* circle;
 	SDL_Texture* box;

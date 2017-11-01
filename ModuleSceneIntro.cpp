@@ -90,6 +90,7 @@ bool ModuleSceneIntro::Start()
 	on_launcher = true;
 	on_turbo = true;
 	ball_up = false;
+	loose = false;
 
 	return ret;
 }
@@ -106,18 +107,25 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	//title
-	p2SString title(" Pinball - SCORE: %d ", App->player->score);
+	p2SString title(" Pinball - SCORE: %d - BALLS: %d", App->player->score, App->player->balls_left);
 	App->window->SetTitle(title.GetString());
 
-	if (on_launcher && !ball_up && App->player->balls_left > 0)//initializing the first ball
+	if (on_launcher && !ball_up && !loose)//initializing the first ball
 	{
 		ball = App->physics->CreateCircle(712, 430, 12, b2BodyType::b2_dynamicBody, true, 0.2f);
 		ball->listener = this;
 		ball_up = true;
 	}
 
+	if (loose && App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+	{
+		App->player->balls_left = 3;
+		App->player->score = 0;
+		loose = false;
+	}
+
 	
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && on_launcher == true)
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && on_launcher == true && !loose)
 	{
 		ball->body->SetType(b2_dynamicBody);
 		ball->body->SetLinearVelocity(b2Vec2(0, -20));
@@ -223,9 +231,10 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		ball_up = false;
 		App->player->balls_left--;
 
-		if (App->player->balls_left == 0)//si mueres resetea score
+		if (App->player->balls_left == 0)
 		{
-			App->player->score = 0;
+			/*App->player->score = 0;*/
+			loose = true;
 		}
 		
 	}
