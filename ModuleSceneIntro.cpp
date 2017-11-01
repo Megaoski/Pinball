@@ -288,11 +288,11 @@ void ModuleSceneIntro::CreateKickers()
 	
 
 	
-	leftkicker = App->physics->CreateRectangle(420, 728, 80, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
+	leftkicker = App->physics->CreateRectangle(420, 728, 85, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
 	PhysBody* B = App->physics->CreateCircle(406, 728, 7, b2BodyType::b2_staticBody, false, 0);
 	rev_joint_left = App->physics->CreateRevoluteJoint(leftkicker, B, -31, 0, -15, -15, 15);
 
-	rightkicker = App->physics->CreateRectangle(600, 728, 80, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
+	rightkicker = App->physics->CreateRectangle(600, 728, 85, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
 	PhysBody* B2 = App->physics->CreateCircle(581, 728, 7, b2BodyType::b2_staticBody, false, 0);
 	rev_joint_right = App->physics->CreateRevoluteJoint(rightkicker, B2, 31, 0, -167, 165, 200);
 
@@ -305,33 +305,18 @@ void ModuleSceneIntro::CreateKickers()
 
 void ModuleSceneIntro::DrawKickers()
 {
-	SDL_Rect section1;
-	section1.x = 68;
-	section1.y = 200;
-	section1.h = 200;
-	section1.w = 200;
-
-	/*App->renderer->Blit(lkicker, SCREEN_WIDTH / 4, -50, &section1, 1.0f, (-rev_joint_left->GetJointAngle() * RADTODEG) + 180, 50, 15);*/
+	
 	int x, y;
+
 	leftkicker->GetPosition(x, y);
-	App->renderer->Blit(lkicker, x + 5, y - 18, NULL, 1.0f, leftkicker->GetRotation() - 30);
+	App->renderer->Blit(lkicker, x + 8, y - 18, NULL, 1.0f, leftkicker->GetRotation() - 30);
 
 	
+	rightkicker->GetPosition(x, y);
+	App->renderer->Blit(rkicker, x - 8, y - 22, NULL, 1.0f, rightkicker->GetRotation() + 30);
+	
 
-	SDL_Rect section2;
-	section2.x = 95;
-	section2.y = 855;
-	section2.h = 21;
-	section2.w = 62;
-
-	/*App->renderer->Blit(sprites, 168, 760, &section2, 1.0f, (-rev_joint_right->GetJointAngle() * RADTODEG), 10, 15);*/
-
-	SDL_Rect section3;
-	section3.x = 68;
-	section3.y = 450;
-	section3.h = 21;
-	section3.w = 62;
-
-	/*App->renderer->Blit(sprites, 400, 505, &section3, 1.0f, (-rev_joint_top->GetJointAngle() * RADTODEG) + 185, 50, 10);*/
+	topkicker->GetPosition(x, y);
+	App->renderer->Blit(lkicker, x + 8, y - 18, NULL, 1.0f, topkicker->GetRotation() - 30);
 
 }
