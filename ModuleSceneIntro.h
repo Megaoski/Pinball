@@ -56,6 +56,7 @@ public:
 	PhysBody* tentaclebouncer1;
 	PhysBody* tentaclebouncer2;
 	PhysBody* tentaclebouncer3;
+	PhysBody* tentaclebouncer4;
 	PhysBody* lefttriangle;
 	PhysBody* righttriangle;
 
@@ -211,6 +212,34 @@ public:
 		327, 87,
 		332, 87,
 		333, 60
+	};
+
+	int rectbouncer1[8] = {
+		56, 357,
+		74, 363,
+		106, 310,
+		91, 295
+	};
+
+	int rectbouncer2[8] = {
+		398, 407,
+		407, 393,
+		427, 435,
+		422, 445
+	};
+
+	int rectbouncer3[8] = {
+		266, 233,
+		272, 224,
+		309, 259,
+		303, 268
+	};
+
+	int rectbouncer4[8] = {
+		171, 62,
+		169, 74,
+		182, 78,
+		181, 62
 	};
 
 	

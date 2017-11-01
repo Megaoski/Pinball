@@ -111,7 +111,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, b2BodyType bodyt
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float density, float restitution, b2BodyType bodytype, float angle)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float density, float restitution, b2BodyType bodytype)
 {
 	b2BodyDef body;
 	body.type = bodytype;
@@ -136,8 +136,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, fl
 	pbody->height = height * 0.5f;
 
 	
-	b->SetTransform(b->GetPosition(), angle); 
-
+	
 	return pbody;
 }
 
@@ -167,6 +166,7 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 
 	return pbody;
 }
+
 
 PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2BodyType bodytype, float restitution)
 {
