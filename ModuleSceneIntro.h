@@ -70,6 +70,8 @@ public:
 	//textures
 	SDL_Texture* sprites;
 	SDL_Texture* ballo;
+	SDL_Texture* lkicker;
+	SDL_Texture* rkicker;
 
 	//animation
 	

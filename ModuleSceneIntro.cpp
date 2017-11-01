@@ -32,7 +32,8 @@ bool ModuleSceneIntro::Start()
 	/*sprites = App->textures->Load("sprites/material.png"); */
 	ballo = App->textures->Load("sprites/pinball_ball.png");
 	background = App->textures->Load("sprites/tablero.png");
-
+	lkicker = App->textures->Load("sprites/leftkicker.png");
+	rkicker = App->textures->Load("sprites/rightkicker.png");
 	//fx
 	bonus_fx = App->audio->LoadFx("fx/bonus.wav");
 
@@ -71,9 +72,7 @@ bool ModuleSceneIntro::Start()
 
 	//anim
 	left_kicker.PushBack({ 477, 237, 42, 80 });
-	left_kicker.PushBack({ 529, 237, 42, 80 });
-	left_kicker.speed = 0.08f;
-	left_kicker.loop = true;
+	
 
 	//calling functions
 	CreateKickers();
@@ -181,14 +180,11 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		ball->GetPosition(x, y);
-		SDL_Rect size;
-		size.w = size.h = 30 + 0.027*(y - 95); 
-		size.x = x;
-		size.y = y;
 		App->renderer->Blit(ballo, x, y, NULL, 0.0f, NULL);
 	}
 
 	DrawKickers();
+	
 	
 	
 
@@ -311,11 +307,16 @@ void ModuleSceneIntro::DrawKickers()
 {
 	SDL_Rect section1;
 	section1.x = 68;
-	section1.y = 450;
-	section1.h = 21;
-	section1.w = 62;
+	section1.y = 200;
+	section1.h = 200;
+	section1.w = 200;
 
-	App->renderer->Blit(sprites, 255, 760, &section1, 1.0f, (-rev_joint_left->GetJointAngle() * RADTODEG) + 180, 50, 15);
+	/*App->renderer->Blit(lkicker, SCREEN_WIDTH / 4, -50, &section1, 1.0f, (-rev_joint_left->GetJointAngle() * RADTODEG) + 180, 50, 15);*/
+	int x, y;
+	leftkicker->GetPosition(x, y);
+	App->renderer->Blit(lkicker, x + 5, y - 18, NULL, 1.0f, leftkicker->GetRotation() - 30);
+
+	
 
 	SDL_Rect section2;
 	section2.x = 95;
@@ -323,7 +324,7 @@ void ModuleSceneIntro::DrawKickers()
 	section2.h = 21;
 	section2.w = 62;
 
-	App->renderer->Blit(sprites, 168, 760, &section2, 1.0f, (-rev_joint_right->GetJointAngle() * RADTODEG), 10, 15);
+	/*App->renderer->Blit(sprites, 168, 760, &section2, 1.0f, (-rev_joint_right->GetJointAngle() * RADTODEG), 10, 15);*/
 
 	SDL_Rect section3;
 	section3.x = 68;
@@ -331,6 +332,6 @@ void ModuleSceneIntro::DrawKickers()
 	section3.h = 21;
 	section3.w = 62;
 
-	App->renderer->Blit(sprites, 400, 505, &section3, 1.0f, (-rev_joint_top->GetJointAngle() * RADTODEG) + 185, 50, 10);
+	/*App->renderer->Blit(sprites, 400, 505, &section3, 1.0f, (-rev_joint_top->GetJointAngle() * RADTODEG) + 185, 50, 10);*/
 
 }
