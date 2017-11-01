@@ -60,17 +60,17 @@ bool ModuleSceneIntro::Start()
 	chincheta3 = App->physics->CreateCircle(620, 140, 20, b2BodyType::b2_staticBody, false, 2.0f);
 	chincheta4 = App->physics->CreateCircle(340, 80, 20, b2BodyType::b2_staticBody, false, 2.0f);
 
-	tentaclebouncer = App->physics->CreateCircle(350, 314, 10, b2BodyType::b2_staticBody, false, 1.0f);//low left one
-	tentaclebouncer = App->physics->CreateCircle(340, 330, 10, b2BodyType::b2_staticBody, false, 1.0f);
-	tentaclebouncer = App->physics->CreateCircle(330, 345, 10, b2BodyType::b2_staticBody, false, 1.0f);
+	tentaclebouncer1 = App->physics->CreateCircle(350, 314, 10, b2BodyType::b2_staticBody, false, 1.0f);//low left one
+	tentaclebouncer1 = App->physics->CreateCircle(340, 330, 10, b2BodyType::b2_staticBody, false, 1.0f);
+	tentaclebouncer1 = App->physics->CreateCircle(330, 345, 10, b2BodyType::b2_staticBody, false, 1.0f);
 
-	tentaclebouncer = App->physics->CreateCircle(660, 405, 10, b2BodyType::b2_staticBody, false, 1.0f);//right
-	tentaclebouncer = App->physics->CreateCircle(670, 420, 10, b2BodyType::b2_staticBody, false, 1.0f);
-	tentaclebouncer = App->physics->CreateCircle(680, 435, 10, b2BodyType::b2_staticBody, false, 1.0f);
+	tentaclebouncer2 = App->physics->CreateCircle(660, 405, 10, b2BodyType::b2_staticBody, false, 1.0f);//right
+	tentaclebouncer2 = App->physics->CreateCircle(670, 420, 10, b2BodyType::b2_staticBody, false, 1.0f);
+	tentaclebouncer2 = App->physics->CreateCircle(680, 435, 10, b2BodyType::b2_staticBody, false, 1.0f);
 
-	tentaclebouncer = App->physics->CreateCircle(560, 260, 10, b2BodyType::b2_staticBody, false, 1.0f);//top
-	tentaclebouncer = App->physics->CreateCircle(532, 235, 10, b2BodyType::b2_staticBody, false, 1.0f);
-	tentaclebouncer = App->physics->CreateCircle(545, 247, 10, b2BodyType::b2_staticBody, false, 1.0f);
+	tentaclebouncer3 = App->physics->CreateCircle(560, 260, 10, b2BodyType::b2_staticBody, false, 1.0f);//top
+	tentaclebouncer3 = App->physics->CreateCircle(532, 235, 10, b2BodyType::b2_staticBody, false, 1.0f);
+	tentaclebouncer3 = App->physics->CreateCircle(545, 247, 10, b2BodyType::b2_staticBody, false, 1.0f);
 
 	lefttriangle = App->physics->CreateChain(SCREEN_WIDTH / 4, 0, leftbottriangle, 6, b2BodyType::b2_staticBody, 0.7f);
 	righttriangle = App->physics->CreateChain(SCREEN_WIDTH / 4, 0, rightbottriangle, 6, b2BodyType::b2_staticBody, 0.7f);
@@ -168,14 +168,7 @@ update_status ModuleSceneIntro::Update()
 		rev_joint_right->SetMotorSpeed(100);
 	}
 
-	//if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN/* && ball != nullptr*/ && on_launcher)
-	//{
-	//	
-	//	ball->body->SetLinearVelocity(b2Vec2(0, -10));
-	//	
-	//}
-
-
+	
 
 	// Prepare for raycast ------------------------------------------------------
 	
@@ -221,6 +214,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	{
 		
 		bodyA->body->SetLinearVelocity(b2Vec2(0, -22));
+		App->player->score += 300;
 		
 	}
 
@@ -233,14 +227,24 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		if (App->player->balls_left == 0)
 		{
-			/*App->player->score = 0;*/
 			loose = true;
 		}
 		
 	}
+
 	if (bodyB == chincheta1 || bodyB == chincheta2 || bodyB == chincheta3 || bodyB == chincheta4)
 	{
 		App->player->score += 200;
+	}
+
+	if (bodyB == lefttriangle || bodyB == righttriangle)
+	{
+		App->player->score += 100;
+	}
+
+	if (bodyB == tentaclebouncer1 || bodyB == tentaclebouncer2 || bodyB == tentaclebouncer3)
+	{
+		App->player->score += 500;
 	}
 	
 	if (bodyB == holesensor)
@@ -283,15 +287,15 @@ void ModuleSceneIntro::CreateKickers()
 	
 
 	
-	leftkicker = App->physics->CreateRectangle(420, 728, 80, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
+	leftkicker = App->physics->CreateRectangle(420, 728, 80, 15, 1.0f, 0, b2BodyType::b2_dynamicBody, 0);
 	PhysBody* B = App->physics->CreateCircle(406, 728, 7, b2BodyType::b2_staticBody, false, 0);
 	rev_joint_left = App->physics->CreateRevoluteJoint(leftkicker, B, -31, 0, -15, -15, 15);
 
-	rightkicker = App->physics->CreateRectangle(600, 728, 80, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
+	rightkicker = App->physics->CreateRectangle(600, 728, 80, 15, 1.0f, 0, b2BodyType::b2_dynamicBody, 0);
 	PhysBody* B2 = App->physics->CreateCircle(581, 728, 7, b2BodyType::b2_staticBody, false, 0);
 	rev_joint_right = App->physics->CreateRevoluteJoint(rightkicker, B2, 31, 0, -167, 165, 200);
 
-	topkicker = App->physics->CreateRectangle(255, 250, 80, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
+	topkicker = App->physics->CreateRectangle(255, 250, 80, 15, 1.0f, 0, b2BodyType::b2_dynamicBody, 0);
 	PhysBody* B3 = App->physics->CreateCircle(310, 250, 7, b2BodyType::b2_staticBody, false, 0);
 	rev_joint_top = App->physics->CreateRevoluteJoint(topkicker, B3, -31, 0, -15, -15, 15);
 

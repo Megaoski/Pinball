@@ -38,8 +38,6 @@ public:
 	//board
 
 	p2List<PhysBody*> backgrounds;
-	/*p2List<PhysBody*> triangle1;
-	p2List<PhysBody*> triangle2;*/
 	p2List<PhysBody*> piece;
 	p2List<PhysBody*> line1;
 	p2List<PhysBody*> line2;
@@ -55,7 +53,9 @@ public:
 	PhysBody* chincheta2;
 	PhysBody* chincheta3;
 	PhysBody* chincheta4;
-	PhysBody* tentaclebouncer;
+	PhysBody* tentaclebouncer1;
+	PhysBody* tentaclebouncer2;
+	PhysBody* tentaclebouncer3;
 	PhysBody* lefttriangle;
 	PhysBody* righttriangle;
 

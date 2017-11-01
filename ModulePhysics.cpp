@@ -111,7 +111,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, b2BodyType bodyt
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float density, float restitution, b2BodyType bodytype)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float density, float restitution, b2BodyType bodytype, float angle)
 {
 	b2BodyDef body;
 	body.type = bodytype;
@@ -134,6 +134,9 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, fl
 	b->SetUserData(pbody);
 	pbody->width = width * 0.5f;
 	pbody->height = height * 0.5f;
+
+	
+	b->SetTransform(b->GetPosition(), angle); 
 
 	return pbody;
 }
