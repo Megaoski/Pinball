@@ -51,7 +51,10 @@ public:
 
 	//bouncers
 
-	PhysBody* chincheta;
+	PhysBody* chincheta1;
+	PhysBody* chincheta2;
+	PhysBody* chincheta3;
+	PhysBody* chincheta4;
 	PhysBody* tentaclebouncer;
 	PhysBody* lefttriangle;
 	PhysBody* righttriangle;

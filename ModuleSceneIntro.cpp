@@ -55,10 +55,10 @@ bool ModuleSceneIntro::Start()
 	line5.add(App->physics->CreateChain(SCREEN_WIDTH / 4, 0, topline1, 8, b2BodyType::b2_staticBody, 0));
 	
 	//bouncers...
-	chincheta = App->physics->CreateCircle(570, 207, 20, b2BodyType::b2_staticBody, false, 2.0f);
-	chincheta = App->physics->CreateCircle(545, 140, 20, b2BodyType::b2_staticBody, false, 2.0f);
-	chincheta = App->physics->CreateCircle(620, 140, 20, b2BodyType::b2_staticBody, false, 2.0f);
-	chincheta = App->physics->CreateCircle(340, 80, 20, b2BodyType::b2_staticBody, false, 2.0f);
+	chincheta1 = App->physics->CreateCircle(570, 207, 20, b2BodyType::b2_staticBody, false, 2.0f);
+	chincheta1 = App->physics->CreateCircle(545, 140, 20, b2BodyType::b2_staticBody, false, 2.0f);
+	chincheta3 = App->physics->CreateCircle(620, 140, 20, b2BodyType::b2_staticBody, false, 2.0f);
+	chincheta4 = App->physics->CreateCircle(340, 80, 20, b2BodyType::b2_staticBody, false, 2.0f);
 
 	tentaclebouncer = App->physics->CreateCircle(350, 314, 10, b2BodyType::b2_staticBody, false, 1.0f);//low left one
 	tentaclebouncer = App->physics->CreateCircle(340, 330, 10, b2BodyType::b2_staticBody, false, 1.0f);
@@ -222,6 +222,16 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		on_launcher = true;
 		ball_up = false;
 		App->player->balls_left--;
+
+		if (App->player->balls_left == 0)//si mueres resetea score
+		{
+			App->player->score = 0;
+		}
+		
+	}
+	if (bodyB == chincheta1 || bodyB == chincheta2 || bodyB == chincheta3 || bodyB == chincheta4)
+	{
+		App->player->score += 200;
 	}
 	
 	if (bodyB == holesensor)
