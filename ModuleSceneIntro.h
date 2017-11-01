@@ -252,8 +252,6 @@ public:
 	bool loose;
 
 	SDL_Texture* circle;
-	SDL_Texture* box;
-	SDL_Texture* rick;
 	SDL_Texture* background;
 	
 	int current_balls;
