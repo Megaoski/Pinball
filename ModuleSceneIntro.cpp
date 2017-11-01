@@ -29,11 +29,12 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	//Textures
-	sprites = App->textures->Load("sprites/material.png"); 
+	/*sprites = App->textures->Load("sprites/material.png"); */
+	ballo = App->textures->Load("sprites/pinball_ball.png");
 	background = App->textures->Load("sprites/tablero.png");
 
 	//fx
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	bonus_fx = App->audio->LoadFx("fx/bonus.wav");
 
 	//sensors
 	endsensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, 890, 600, 200, b2BodyType::b2_staticBody);//sensor de game over
@@ -175,7 +176,18 @@ update_status ModuleSceneIntro::Update()
 	
 
 	App->renderer->Blit(background, SCREEN_WIDTH / 4, 0, NULL, 0.0f, NULL); //pintamos el background
-	
+
+	if (ball_up)
+	{
+		int x, y;
+		ball->GetPosition(x, y);
+		SDL_Rect size;
+		size.w = size.h = 30 + 0.027*(y - 95); 
+		size.x = x;
+		size.y = y;
+		App->renderer->Blit(ballo, x, y, NULL, 0.0f, NULL);
+	}
+
 	DrawKickers();
 	
 	

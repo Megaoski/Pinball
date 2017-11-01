@@ -69,8 +69,10 @@ public:
 
 	//textures
 	SDL_Texture* sprites;
+	SDL_Texture* ballo;
 
 	//animation
+	
 	Animation left_kicker;
 	Animation right_kicker;
 
