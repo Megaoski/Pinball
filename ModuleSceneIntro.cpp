@@ -325,12 +325,12 @@ void ModuleSceneIntro::CreateKickers()
 	
 
 	
-	leftkicker = App->physics->CreateRectangle(420, 728, 85, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
-	PhysBody* B = App->physics->CreateCircle(406, 728, 7, b2BodyType::b2_staticBody, false, 0);
+	leftkicker = App->physics->CreateRectangle(430, 728, 85, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
+	PhysBody* B = App->physics->CreateCircle(416, 728, 7, b2BodyType::b2_staticBody, false, 0);
 	rev_joint_left = App->physics->CreateRevoluteJoint(leftkicker, B, -31, 0, -15, -15, 15);
 
-	rightkicker = App->physics->CreateRectangle(600, 728, 85, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
-	PhysBody* B2 = App->physics->CreateCircle(581, 728, 7, b2BodyType::b2_staticBody, false, 0);
+	rightkicker = App->physics->CreateRectangle(590, 728, 85, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
+	PhysBody* B2 = App->physics->CreateCircle(571, 728, 7, b2BodyType::b2_staticBody, false, 0);
 	rev_joint_right = App->physics->CreateRevoluteJoint(rightkicker, B2, 31, 0, -167, 165, 200);
 
 	topkicker = App->physics->CreateRectangle(255, 250, 80, 15, 1.0f, 0, b2BodyType::b2_dynamicBody);
@@ -350,7 +350,7 @@ void ModuleSceneIntro::DrawKickers()
 
 	
 	rightkicker->GetPosition(x, y);
-	App->renderer->Blit(rkicker, x - 8, y - 22, NULL, 1.0f, rightkicker->GetRotation() + 30);
+	App->renderer->Blit(rkicker, x - 5, y - 22, NULL, 1.0f, rightkicker->GetRotation() + 30);
 	
 
 	topkicker->GetPosition(x, y);
