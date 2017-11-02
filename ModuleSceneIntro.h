@@ -68,10 +68,17 @@ public:
 	PhysBody* holesensor;
 
 	//textures
+
+	
+	SDL_Texture* background;
 	SDL_Texture* sprites;
 	SDL_Texture* ballo;
 	SDL_Texture* lkicker;
 	SDL_Texture* rkicker;
+
+	//fx
+	uint bonus_fx;
+	uint loose_ball_fx;
 
 	//animation
 	
@@ -255,13 +262,11 @@ public:
 	bool ball_up;
 	bool loose;
 
-	SDL_Texture* circle;
-	SDL_Texture* background;
 	
-	int current_balls;
-	int current_score;
+	
+	
 
-	uint bonus_fx;
+	
 
 	p2Point<int> ray;
 	bool ray_on;

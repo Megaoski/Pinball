@@ -36,6 +36,7 @@ bool ModuleSceneIntro::Start()
 	rkicker = App->textures->Load("sprites/rightkicker.png");
 	//fx
 	bonus_fx = App->audio->LoadFx("fx/bonus.wav");
+	loose_ball_fx = App->audio->LoadFx("fx/loose_ball.wav");
 
 	//sensors
 	endsensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, 890, 600, 200, b2BodyType::b2_staticBody);//sensor de game over
@@ -230,6 +231,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		on_launcher = true;
 		ball_up = false;
 		App->player->balls_left--;
+		App->audio->PlayFx(loose_ball_fx);
 
 		if (App->player->balls_left == 0)
 		{
