@@ -211,6 +211,11 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
 
+	if (bodyB == launchersensor)
+	{
+		on_launcher = true;
+	}
+
 	if (bodyB == turbosensor)
 	{
 		
