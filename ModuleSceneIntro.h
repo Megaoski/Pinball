@@ -67,6 +67,8 @@ public:
 	PhysBody* turbosensor;
 	PhysBody* holesensor;
 
+	
+
 	//textures
 
 	
@@ -265,6 +267,9 @@ public:
 	bool on_turbo;
 	bool ball_up;
 	bool loose;
+	
+	
+	
 
 	
 	
