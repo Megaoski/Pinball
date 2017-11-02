@@ -34,6 +34,7 @@ bool ModuleSceneIntro::Start()
 	background = App->textures->Load("sprites/tablero.png");
 	lkicker = App->textures->Load("sprites/leftkicker.png");
 	rkicker = App->textures->Load("sprites/rightkicker.png");
+
 	//fx
 	bonus_fx = App->audio->LoadFx("fx/bonus.wav");
 	loose_ball_fx = App->audio->LoadFx("fx/loose_ball.wav");
@@ -41,17 +42,16 @@ bool ModuleSceneIntro::Start()
 	launcher_fx = App->audio->LoadFx("fx/launcher.wav");
 	turbo_fx = App->audio->LoadFx("fx/turbo.wav");
 	bumper_fx = App->audio->LoadFx("fx/bumper.wav");
+	triangle_fx = App->audio->LoadFx("fx/triangle.wav");
 
 	//sensors
 	endsensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, 890, 600, 200, b2BodyType::b2_staticBody);//sensor de game over
 	launchersensor = App->physics->CreateRectangleSensor(712, 430, 45, 30, b2BodyType::b2_staticBody);//sensor launcher
-	turbosensor = App->physics->CreateRectangleSensor(270, 360, 45, 30, b2BodyType::b2_staticBody);
+	turbosensor = App->physics->CreateRectangleSensor(310, 400, 45, 45, b2BodyType::b2_staticBody);//middle one
 	holesensor = App->physics->CreateRectangleSensor(460, 50, 45, 30, b2BodyType::b2_staticBody);//up hole
 
 	//Creating table
 	backgrounds.add(App->physics->CreateChain(245, 0, tabla, 92, b2BodyType::b2_staticBody, 0));//TABLERO chained
-	/*triangle1.add(App->physics->CreateChain(SCREEN_WIDTH / 4, 0, leftbottriangle, 6, b2BodyType::b2_staticBody));
-	triangle2.add(App->physics->CreateChain(SCREEN_WIDTH / 4, 0, rightbottriangle, 6, b2BodyType::b2_staticBody));*/
 	piece.add(App->physics->CreateChain(SCREEN_WIDTH / 4, 0, toppiece, 16, b2BodyType::b2_staticBody, 0));
 	line1.add(App->physics->CreateChain(SCREEN_WIDTH / 4, 0, botleftline, 16, b2BodyType::b2_staticBody, 0));
 	line2.add(App->physics->CreateChain(SCREEN_WIDTH / 4, 0, botrightline, 16, b2BodyType::b2_staticBody, 0));
@@ -88,6 +88,8 @@ bool ModuleSceneIntro::Start()
 	on_turbo = true;
 	ball_up = false;
 	loose = false;
+	
+	
 
 	return ret;
 }
@@ -217,7 +219,7 @@ update_status ModuleSceneIntro::Update()
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	int x, y;
+	
 
 	if (bodyB == launchersensor)//fixes launcher bug
 	{
@@ -226,12 +228,14 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	if (bodyB == turbosensor)
 	{
-		
-		bodyA->body->SetLinearVelocity(b2Vec2(0, -30));
-		App->player->score += 300;
-		App->audio->PlayFx(turbo_fx);
-		
+		if (bodyA->body->GetLinearVelocity().y < 0) {
+			bodyA->body->SetLinearVelocity(b2Vec2(-60, -60));
+			App->player->score += 500;
+			App->audio->PlayFx(turbo_fx);
+		}
 	}
+
+	
 
 	if (bodyB == endsensor)
 	{
@@ -267,6 +271,18 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	if (bodyB == leftkicker || bodyB == rightkicker || bodyB == topkicker)
 	{
 		App->player->score += 100;
+	}
+
+	if (bodyB == lefttriangle || bodyB == righttriangle)
+	{
+		App->player->score += 100;
+		App->audio->PlayFx(triangle_fx);
+	}
+
+	if (bodyB == tentaclebouncer1 || bodyB == tentaclebouncer2 || bodyB == tentaclebouncer3 || bodyB == tentaclebouncer4)
+	{
+		App->player->score += 500;
+		App->audio->PlayFx(bumper_fx);
 	}
 	
 	if (bodyB == holesensor)
