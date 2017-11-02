@@ -6,8 +6,8 @@ ModuleSceneIntro.cpp(208): warning C4244: 'argument': conversion from 'float' to
 ModuleSceneIntro.cpp(211): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 F:\Visual Studio\VC\include\limits(210): warning C4577: 'noexcept' used with no exception handling mode specified; termination on exception is not guaranteed. Specify /EHsc
   Generating code
-  2 of 228 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
+  1 of 227 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\Pinball\Release\2DPinball.exe

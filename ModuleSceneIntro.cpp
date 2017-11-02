@@ -285,7 +285,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		App->audio->PlayFx(bumper_fx);
 	}
 	
-	if (bodyB == leftkicker || bodyB == rightkicker)
+	if (bodyB == leftkicker || bodyB == rightkicker || bodyB == topkicker)
 	{
 		App->audio->PlayFx(kicker_fx);
 	}
