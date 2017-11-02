@@ -86,6 +86,7 @@ public:
 	uint bumper_fx;
 	uint turbo_fx;
 	uint triangle_fx;
+	
 
 	//animation
 	

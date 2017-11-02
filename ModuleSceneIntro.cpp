@@ -150,7 +150,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		rev_joint_left->SetMotorSpeed(100);
 		rev_joint_top->SetMotorSpeed(100);
-		App->audio->PlayFx(kicker_fx);
+		
 		
 	}
 	else
@@ -162,7 +162,7 @@ update_status ModuleSceneIntro::Update()
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		rev_joint_right->SetMotorSpeed(-100);
-		App->audio->PlayFx(kicker_fx);
+		
 
 	}
 	else
@@ -285,11 +285,11 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		App->audio->PlayFx(bumper_fx);
 	}
 	
-	if (bodyB == holesensor)
+	if (bodyB == leftkicker || bodyB == rightkicker)
 	{
-		/*bodyA->body->SetLinearVelocity(b2Vec2(0, -100));*/
-		
+		App->audio->PlayFx(kicker_fx);
 	}
+
 	
 
 }
