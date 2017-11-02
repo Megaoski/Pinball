@@ -81,6 +81,8 @@ public:
 	uint loose_ball_fx;
 	uint kicker_fx;
 	uint launcher_fx;
+	uint bumper_fx;
+	uint turbo_fx;
 
 	//animation
 	

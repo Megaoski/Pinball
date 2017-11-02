@@ -39,6 +39,8 @@ bool ModuleSceneIntro::Start()
 	loose_ball_fx = App->audio->LoadFx("fx/loose_ball.wav");
 	kicker_fx = App->audio->LoadFx("fx/kicker.wav");
 	launcher_fx = App->audio->LoadFx("fx/launcher.wav");
+	turbo_fx = App->audio->LoadFx("fx/turbo.wav");
+	bumper_fx = App->audio->LoadFx("fx/bumper.wav");
 
 	//sensors
 	endsensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, 890, 600, 200, b2BodyType::b2_staticBody);//sensor de game over
@@ -225,8 +227,9 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	if (bodyB == turbosensor)
 	{
 		
-		bodyA->body->SetLinearVelocity(b2Vec2(0, -22));
+		bodyA->body->SetLinearVelocity(b2Vec2(0, -30));
 		App->player->score += 300;
+		App->audio->PlayFx(turbo_fx);
 		
 	}
 
@@ -248,6 +251,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	if (bodyB == chincheta1 || bodyB == chincheta2 || bodyB == chincheta3 || bodyB == chincheta4)
 	{
 		App->player->score += 600;
+		App->audio->PlayFx(bumper_fx);
 	}
 
 	if (bodyB == lefttriangle || bodyB == righttriangle)
