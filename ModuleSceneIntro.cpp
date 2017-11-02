@@ -37,6 +37,8 @@ bool ModuleSceneIntro::Start()
 	//fx
 	bonus_fx = App->audio->LoadFx("fx/bonus.wav");
 	loose_ball_fx = App->audio->LoadFx("fx/loose_ball.wav");
+	kicker_fx = App->audio->LoadFx("fx/kicker.wav");
+	launcher_fx = App->audio->LoadFx("fx/launcher.wav");
 
 	//sensors
 	endsensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, 890, 600, 200, b2BodyType::b2_staticBody);//sensor de game over
@@ -57,7 +59,7 @@ bool ModuleSceneIntro::Start()
 	line5.add(App->physics->CreateChain(SCREEN_WIDTH / 4, 0, topline1, 8, b2BodyType::b2_staticBody, 0));
 	
 	//bouncers...
-	chincheta1 = App->physics->CreateCircle(570, 207, 20, b2BodyType::b2_staticBody, false, 2.0f);
+	chincheta1 = App->physics->CreateCircle(575, 200, 20, b2BodyType::b2_staticBody, false, 2.0f);
 	chincheta1 = App->physics->CreateCircle(545, 140, 20, b2BodyType::b2_staticBody, false, 2.0f);
 	chincheta3 = App->physics->CreateCircle(620, 140, 20, b2BodyType::b2_staticBody, false, 2.0f);
 	chincheta4 = App->physics->CreateCircle(340, 80, 20, b2BodyType::b2_staticBody, false, 2.0f);
@@ -123,6 +125,7 @@ update_status ModuleSceneIntro::Update()
 		ball->body->SetType(b2_dynamicBody);
 		ball->body->SetLinearVelocity(b2Vec2(0, -20));
 		on_launcher = false;
+		App->audio->PlayFx(launcher_fx);
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
@@ -143,6 +146,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		rev_joint_left->SetMotorSpeed(100);
 		rev_joint_top->SetMotorSpeed(100);
+		App->audio->PlayFx(kicker_fx);
 		
 	}
 	else
@@ -154,6 +158,7 @@ update_status ModuleSceneIntro::Update()
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		rev_joint_right->SetMotorSpeed(-100);
+		App->audio->PlayFx(kicker_fx);
 
 	}
 	else
@@ -212,7 +217,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	int x, y;
 
-	if (bodyB == launchersensor)
+	if (bodyB == launchersensor)//fixes launcher bug
 	{
 		on_launcher = true;
 	}
@@ -242,7 +247,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	if (bodyB == chincheta1 || bodyB == chincheta2 || bodyB == chincheta3 || bodyB == chincheta4)
 	{
-		App->player->score += 200;
+		App->player->score += 600;
 	}
 
 	if (bodyB == lefttriangle || bodyB == righttriangle)
@@ -253,6 +258,11 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	if (bodyB == tentaclebouncer1 || bodyB == tentaclebouncer2 || bodyB == tentaclebouncer3)
 	{
 		App->player->score += 400;
+	}
+
+	if (bodyB == leftkicker || bodyB == rightkicker || bodyB == topkicker)
+	{
+		App->player->score += 100;
 	}
 	
 	if (bodyB == holesensor)

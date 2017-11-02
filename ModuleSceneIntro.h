@@ -79,6 +79,8 @@ public:
 	//fx
 	uint bonus_fx;
 	uint loose_ball_fx;
+	uint kicker_fx;
+	uint launcher_fx;
 
 	//animation
 	
